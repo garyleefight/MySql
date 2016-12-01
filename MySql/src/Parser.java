@@ -303,6 +303,7 @@ public class Parser {
         if(arg_s[0].trim().equalsIgnoreCase("*")){
                     if(arg_s.length==1) {
 //                    System.out.print("select *");
+                      arg.add(new Argument(null,"*"));
                     }
                     else{
                         return false;
