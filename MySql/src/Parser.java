@@ -230,7 +230,7 @@ public class Parser {
                 String[] tables = stringBuilder1.toString().split(",");
 
                 for(int i=0;i<tables.length;i++){
-                    t_names.add(tables[i].trim());
+                    delete.t_names.add(tables[i].trim());
                 }
 
                 if(delete.where==true){
@@ -303,7 +303,7 @@ public class Parser {
         if(arg_s[0].trim().equalsIgnoreCase("*")){
                     if(arg_s.length==1) {
 //                    System.out.print("select *");
-                      arg.add(new Argument(null,"*"));
+                        select.arg.add("*");
                     }
                     else{
                         return false;
@@ -312,7 +312,7 @@ public class Parser {
         }else{
             for(int i=0;i<arg_s.length;i++){
                 arg_s[i]=arg_s[i].trim();
-                arg.add(new Argument(null,arg_s[i]));
+                select.arg.add(arg_s[i]);
             }
 //                finished argument
         }
@@ -327,7 +327,7 @@ public class Parser {
             String[] tables = stringBuilder.toString().split(",");
             for(int i=0;i<tables.length;i++){
                 tables[i] = tables[i].trim();
-                t_names.add(tables[i]);
+                select.t_names.add(tables[i]);
             }
 
             stringBuilder = new StringBuilder();
@@ -368,7 +368,7 @@ public class Parser {
                 String[] tables = stringBuilder.toString().split(",");
                 for(int i=0;i<tables.length;i++){
                     tables[i] = tables[i].trim();
-                    t_names.add(tables[i]);
+                    select.t_names.add(tables[i]);
                 }
 
                 stringBuilder = new StringBuilder();
@@ -383,7 +383,7 @@ public class Parser {
                 String[] tables = stringBuilder.toString().split(",");
                 for(int i=0;i<tables.length;i++){
                     tables[i] = tables[i].trim();
-                    t_names.add(tables[i]);
+                    select.t_names.add(tables[i]);
                 }
             }
         }
