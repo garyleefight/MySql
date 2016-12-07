@@ -253,7 +253,7 @@ public class Relation implements Serializable {
 	    str+=("\n");
 	    for (ListIterator<Block> vit = data.listIterator(); vit.hasNext();) {
 	      Block b=vit.next();
-	      str+=i + ": ";
+//	      str+=i + ": ";
 	      str+=b.toString();
 	      str+=("\n");
 	      i++;

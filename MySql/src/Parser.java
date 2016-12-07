@@ -249,7 +249,7 @@ public class Parser {
             }
 
         } catch (Exception e) {
-            e.printStackTrace();
+//            e.printStackTrace();
             System.out.print("Syntax Wrong Format!!!");
             return false;
         }
@@ -265,8 +265,13 @@ public class Parser {
         int f_index=-1;
         int w_index=-1;
         int o_index=-1;
+        int d_index=-1;
 
         for(int i=1; i<res.length;i++){
+            if(res[i].equalsIgnoreCase("distinct")){
+                d_index = i;
+            }
+
             if(res[i].equalsIgnoreCase("from")){
                 f_index = i;
             }
@@ -278,6 +283,12 @@ public class Parser {
             if(res[i].equalsIgnoreCase("order")){
                 o_index = i;
             }
+        }
+
+        if( d_index == 1){
+            select.distinct = true;
+        }else if (d_index >=0){
+            return false;
         }
 
         if(w_index>0) {
@@ -293,29 +304,54 @@ public class Parser {
             System.out.print("No from!!");
             return false;
         }
-
         StringBuilder stringBuilder = new StringBuilder();
-        for(int i=1;i<f_index;i++){
-            stringBuilder.append(res[i]+" ");
-        }
-        String []arg_s = stringBuilder.toString().split(",");
-
-        if(arg_s[0].trim().equalsIgnoreCase("*")){
-                    if(arg_s.length==1) {
-//                    System.out.print("select *");
-                        select.arg.add("*");
-                    }
-                    else{
-                        return false;
-                    }
-
-        }else{
-            for(int i=0;i<arg_s.length;i++){
-                arg_s[i]=arg_s[i].trim();
-                select.arg.add(arg_s[i]);
+        if(d_index >0){
+            for(int i=2;i<f_index;i++){
+                stringBuilder.append(res[i]+" ");
             }
+            String []arg_s = stringBuilder.toString().split(",");
+
+            if(arg_s[0].trim().equalsIgnoreCase("*")){
+                if(arg_s.length==1) {
+//                    System.out.print("select *");
+                    select.arg.add("*");
+                }
+                else{
+                    return false;
+                }
+
+            }else{
+                for(int i=0;i<arg_s.length;i++){
+                    arg_s[i]=arg_s[i].trim();
+                    select.arg.add(arg_s[i]);
+                }
 //                finished argument
+            }
+        }else{
+
+            for(int i=1;i<f_index;i++){
+                stringBuilder.append(res[i]+" ");
+            }
+            String []arg_s = stringBuilder.toString().split(",");
+
+            if(arg_s[0].trim().equalsIgnoreCase("*")){
+                if(arg_s.length==1) {
+//                    System.out.print("select *");
+                    select.arg.add("*");
+                }
+                else{
+                    return false;
+                }
+
+            }else{
+                for(int i=0;i<arg_s.length;i++){
+                    arg_s[i]=arg_s[i].trim();
+                    select.arg.add(arg_s[i]);
+                }
+//                finished argument
+            }
         }
+
 
 
         stringBuilder = new StringBuilder();
