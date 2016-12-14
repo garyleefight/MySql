@@ -199,6 +199,10 @@ public class Executor {
             ExTreeNode deleteTree=parse.delete.w_clause;
             for(int j=0;j<num_blocks;j++){
                 Block test_block=mem.getBlock(j);
+                if(deleteTree==null){
+                    test_block.clear();
+                    continue;
+                }
                 ArrayList<Tuple> test_tuples=test_block.getTuples();
                 if(test_tuples.size()==0) continue;
                 for(int k=0;k<test_tuples.size();k++){
@@ -209,7 +213,6 @@ public class Executor {
             }
             deleted_table.setBlocks(i*Config.NUM_OF_BLOCKS_IN_MEMORY, 0, num_blocks);
         }
-        System.out.println("After delete:"+deleted_table);
     }
 
     public Relation select_execute(){
